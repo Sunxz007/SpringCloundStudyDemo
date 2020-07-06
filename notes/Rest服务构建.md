@@ -137,7 +137,67 @@ CTRL+SHIFT + ALT + / ，打开上面的这个界面，选择 registry
 
 最后重启idea
 
-**建议：**使用手动热部署，节约内存和减少卡顿
+**建议：** 使用手动热部署，节约内存和减少卡顿
 
-## 消费者订单模块
+## 案例2：消费者订单模块
+
+### 基本步骤
+
+1. 创建工程 [cloud-consumer-order80](../cloud-consumer-order80) 
+2. 编写依赖的pom  [pom.xml](../cloud-consumer-order80/pom.xml) 
+3. 编写配置文件  [application.yml](../cloud-consumer-order80/src/main/resources/application.yml) 
+4. 编写启动类  [OrderMain80.java](../cloud-consumer-order80/src/main/java/com/sun/springcloud/OrderMain80.java) 
+5. 编写需要的bean  [entities](../cloud-consumer-order80/src/main/java/com/sun/springcloud/entities) 
+6. 编写控制业务 
+
+cotroller 层需要调用其他模块的服务，此时需要restTemplate 来调用REST服务
+
+### RestTemplate
+
+RestTemplate提供了多种便携访问远程Http服务的方法，是一种简单便携的访问Restful服务模板类，是Spring提供的用于访问Rest服务的**客户端模板工具集** 
+
+官方文档地址：https://docs.spring.io/spring/docs/5.2.5.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html
+
+**使用步骤**
+
+1. 配置bean
+
+```java
+@Configuration
+public class ApplicationContextConfig {
+
+    @Bean
+    public RestTemplate getRestTemplate(){
+        return new RestTemplate();
+    }
+
+}
+```
+
+2. 在服务中调用
+
+```java
+@Service
+public class MyService {
+    private final RestTemplate restTemplate;
+    public MyService(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
+    public Details someRestCall(String name) {
+        return this.restTemplate.getForObject("/{name}/details", Details.class, name);
+    }
+}
+```
+
+**注意：**
+
+在服务模块的参数中不要忘记添加@requestBody注解，request注解来解析json字符串中的数据请求，服务端与客户端是通过json来传输数据的
+
+## 抽离公共模块
+
+两个模块中，entities中存在重复的部分，需要抽离出来，作为单独的包
+
+```java
+
+```
 
