@@ -1,8 +1,7 @@
-package com.sunxz.springcloud.service;
+package com.sun.springcloud.service;
 
-import com.sunxz.springcloud.dao.PaymentDao;
-import com.sunxz.springcloud.entities.Payment;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sun.springcloud.dao.PaymentDao;
+import com.sun.springcloud.entities.Payment;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

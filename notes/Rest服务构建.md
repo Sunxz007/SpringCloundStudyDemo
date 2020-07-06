@@ -66,23 +66,23 @@ PRIMARY KEY(`id`)
 
 第二步：创建entities 和 Json 封装体
 
- [Payment.java](../cloud-provider-payment8001/src/main/java/com/sunxz/springcloud/entities/Payment.java) 
+ [Payment.java](../cloud-provider-payment8001/src/main/java/com/sun/springcloud/entities/Payment.java) 
 
- [CommonResult.java](../cloud-provider-payment8001/src/main/java/com/sunxz/springcloud/entities/CommonResult.java) 
+ [CommonResult.java](../cloud-provider-payment8001/src/main/java/com/sun/springcloud/entities/CommonResult.java) 
 
 第三步：创建dao 和 Mapper
 
- [PaymentDao.java](../cloud-provider-payment8001/src/main/java/com/sunxz/springcloud/dao/PaymentDao.java) 
+ [PaymentDao.java](../cloud-provider-payment8001/src/main/java/com/sun/springcloud/dao/PaymentDao.java) 
 
  [PaymentMapper.xml](../cloud-provider-payment8001/src/main/resources/mapper/PaymentMapper.xml) 
 
 第四步： 创建service 层
 
- [service](../cloud-provider-payment8001/src/main/java/com/sunxz/springcloud/service) 
+ [service](../cloud-provider-payment8001/src/main/java/com/sun/springcloud/service) 
 
 第五步：编写controller层
 
- [controller](../cloud-provider-payment8001/src/main/java/com/sunxz/springcloud/controller) 
+ [controller](../cloud-provider-payment8001/src/main/java/com/sun/springcloud/controller) 
 
 ### 6. 测试
 
@@ -197,7 +197,42 @@ public class MyService {
 
 两个模块中，entities中存在重复的部分，需要抽离出来，作为单独的包
 
-```java
+第一步：创建公共模块 [cloud-api-commons](../cloud-api-commons) 
 
+第二步：引入pom依赖
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-all</artifactId>
+        <version>5.1.0</version>
+    </dependency>
+</dependencies>
 ```
+
+第三步，拷贝entities 到包下 [entities](../cloud-api-commons/src/main/java/com/sun/springcloud/entities) 
+
+第四步：maven命令clean，install 检查构建是否无误
+
+第五步：两个某块删除各自的entities包，并引入自己的依赖
+
+```xml
+<dependency>
+    <groupId>com.sun.springcloud</groupId>
+    <artifactId>cloud-api-commons</artifactId>
+    <version>${project.version}</version>
+</dependency>
+```
+
+第六步：测试是否成功
 

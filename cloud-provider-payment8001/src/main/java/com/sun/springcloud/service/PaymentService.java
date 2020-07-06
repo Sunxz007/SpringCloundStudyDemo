@@ -1,6 +1,6 @@
-package com.sunxz.springcloud.service;
+package com.sun.springcloud.service;
 
-import com.sunxz.springcloud.entities.Payment;
+import com.sun.springcloud.entities.Payment;
 import org.apache.ibatis.annotations.Param;
 
 public interface PaymentService {

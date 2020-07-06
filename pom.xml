@@ -4,13 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sun</groupId>
+    <groupId>com.sun.springcloud</groupId>
     <artifactId>springcloud2020</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>cloud-provider-payment8001</module>
         <module>cloud-consumer-order80</module>
+        <module>cloud-api-commons</module>
     </modules>
 
 
@@ -34,7 +35,7 @@
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.16.18</lombok.version>
         <mysql.version>8.0.16</mysql.version>
-        <druird.version>1.1.16</druird.version>
+        <druird.version>1.1.23</druird.version>
         <druid.spring.boot.starter.version>1.1.10</druid.spring.boot.starter.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
@@ -47,9 +48,9 @@
         <dependencies>
             <!-- 子模块继承之后，提供作用：锁定版本 + 子module不用谢groupId和version -->
             <dependency>
-                <groupId>org.springframe.boot</groupId>
+                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>2.2.2.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

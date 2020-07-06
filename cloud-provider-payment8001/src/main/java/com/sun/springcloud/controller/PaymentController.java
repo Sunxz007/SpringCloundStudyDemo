@@ -1,11 +1,9 @@
-package com.sunxz.springcloud.controller;
+package com.sun.springcloud.controller;
 
-import com.oracle.tools.packager.Log;
-import com.sunxz.springcloud.entities.CommonResult;
-import com.sunxz.springcloud.entities.Payment;
-import com.sunxz.springcloud.service.PaymentService;
+import com.sun.springcloud.service.PaymentService;
+import com.sun.springcloud.entities.CommonResult;
+import com.sun.springcloud.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,7 +19,7 @@ public class PaymentController {
     @PostMapping("/payment/create")
     public CommonResult create(@RequestBody Payment payment){
         int result = paymentService.create(payment);
-        Log.info("****插入结果"+ result);
+        log.info("****插入结果" + result);
 
         if(result >0 ){
             return new CommonResult<>(200, "插入数据库成功",result);
