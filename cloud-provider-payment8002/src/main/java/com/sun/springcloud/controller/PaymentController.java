@@ -1,8 +1,8 @@
 package com.sun.springcloud.controller;
 
-import com.sun.springcloud.service.PaymentService;
 import com.sun.springcloud.entities.CommonResult;
 import com.sun.springcloud.entities.Payment;
+import com.sun.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +33,14 @@ public class PaymentController {
     }
 
     @GetMapping("/payment/get/{id}")
-    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id){
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPaymentById(id);
-        log.info("*****获取结果："+payment);
+        log.info("*****获取结果：" + payment);
 
-        if(payment !=null){
+        if (payment != null) {
             return new CommonResult<>(200, "查询成功~" + serverPort, payment);
-        }else {
-            return new CommonResult<>(444, "没有对应记录，查询id："+id, null);
+        } else {
+            return new CommonResult<>(444, "没有对应记录，查询id：" + id, null);
         }
     }
 }
