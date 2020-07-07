@@ -18,6 +18,7 @@ mybatis:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      # 单机版 defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
     register-with-eureka: true # 表示是否将自己注册进eurekaServer 默认为true
     fetch-registry: true # 是否从eureka server 抓取已有的注册信息，默认为tre，单店无所谓，集群必须设置为true 才能配合ribbon 使用负载均衡
