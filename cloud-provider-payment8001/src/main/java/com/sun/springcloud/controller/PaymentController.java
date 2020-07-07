@@ -5,9 +5,12 @@ import com.sun.springcloud.entities.CommonResult;
 import com.sun.springcloud.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -19,6 +22,9 @@ public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
+
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     @PostMapping("/payment/create")
     public CommonResult create(@RequestBody Payment payment) {
@@ -33,14 +39,30 @@ public class PaymentController {
     }
 
     @GetMapping("/payment/get/{id}")
-    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id){
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPaymentById(id);
-        log.info("*****获取结果："+payment);
+        log.info("*****获取结果：" + payment);
 
-        if(payment !=null){
+        if (payment != null) {
             return new CommonResult<>(200, "查询成功~" + serverPort, payment);
-        }else {
-            return new CommonResult<>(444, "没有对应记录，查询id："+id, null);
+        } else {
+            return new CommonResult<>(444, "没有对应记录，查询id：" + id, null);
         }
+    }
+
+    @GetMapping(value = "/payment/discovery")
+    public Object discovery() {
+        // 查看寻客户端获取服务
+        List<String> services = discoveryClient.getServices();
+        // 遍历输出信息
+        services.forEach((service) -> log.info("*****element:" + service));
+        // 获服务的实例
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        // 遍历输出信息
+        instances.forEach((instance) -> {
+            log.info(instance.getServiceId() + " \t " + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
+        });
+        // 返回discoveryClient
+        return this.discoveryClient;
     }
 }
