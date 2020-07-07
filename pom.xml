@@ -154,7 +154,7 @@
                 <version>${spring.boot.version}</version>
                 <configuration>
                     <fork>true</fork>
-                    <addResource>true</addResource>
+                    <addResources>true</addResources>
                 </configuration>
             </plugin>
             <plugin>
