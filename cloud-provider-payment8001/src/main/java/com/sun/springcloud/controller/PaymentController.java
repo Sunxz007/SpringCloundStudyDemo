@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -64,5 +65,15 @@ public class PaymentController {
         });
         // 返回discoveryClient
         return this.discoveryClient;
+    }
+
+    /**
+     * 模拟长时连接方法
+     * @return 端口号
+     */
+    @GetMapping("/payment/timeout")
+    public String TimeoutDemo() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
+        return serverPort;
     }
 }
